@@ -1,13 +1,13 @@
 # Booking portal exercise
 
-The "Booking_portal" is an application with the purpose of 
+The "Booking_portal" is an application with the purpose of
 creating payment bookings. It consists on a payment form with the following structure:
 
 ![alt tag](https://s3.amazonaws.com/f.cl.ly/items/3V2d3S1P2R231j3c0H2j/Screen%20Shot%202015-04-09%20at%2001.51.19.png)
 
 When the form is submitted, the application creates a payment record with the provided information.
 
-This application also has an API consisting of 2 endpoints that are detailed on the [Readme](https://github.com/marcoalacot/booking_portal_exercise/tree/master/server).
+This application also has an API consisting of 2 endpoints that are detailed on the [Readme](https://github.com/peertransfer/hiring_exercise/tree/master/server).
 
 Please develop a second application that communicates with the "booking_portal" application in order to accomplish the following:
 
@@ -18,7 +18,7 @@ When a payment is booked, this payment has to go through a "quality check", the 
 * **DuplicatedPayment**: The user that booked the payment has already a payment in the system.
 * **AmountThreshold**: The amount of the payment is bigger than 1.000.000$
 
-The application should show if any of this "quality check" criteria are not met. 
+The application should show if any of this "quality check" criteria are not met.
 
 Besides "quality check", we also want to check for "over" and "under" payments [1]:
 
