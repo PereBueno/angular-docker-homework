@@ -11,6 +11,7 @@ This application emulates the process of booking a payment with peerTransfer
 $ bundle install
 $ bundle exec rake db:create
 $ bundle exec rake db:migrate
+$ bundle exec rake db:seed
 ```
 
 ## Usage
