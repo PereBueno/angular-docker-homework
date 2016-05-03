@@ -7,7 +7,7 @@ creating payment bookings. It consists on a payment form with the following stru
 
 When the form is submitted, the application creates a payment record with the provided information.
 
-This application also has an API consisting of 2 endpoints that are detailed on the [Readme](https://github.com/peertransfer/hiring_exercise/tree/master/server).
+This application also has an API consisting of 2 endpoints that are detailed on the [Readme](server/README.md).
 
 Please develop a second application, inside the ``client`` directory, that communicates with the "booking portal" application in order to accomplish the following:
 
