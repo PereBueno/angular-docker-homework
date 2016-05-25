@@ -38,5 +38,5 @@ $ curl http://localhost:9292/api
 {"message":"Hello Developer"}
 
 $ curl http://localhost:9292/api/bookings
-{"bookings":[{"reference":"any reference","amount":10000,"country_from":null,"sender_full_name":null,"sender_address":null,"school":null,"currency_from":null,"student_id":null,"email":null}]}
+{"bookings":[{"reference":"some reference","amount":10000,"amount_received":10000,"country_from":"ES","sender_full_name":"Name","sender_address":"Address","school":"School","currency_from":"USD","student_id":123456,"email":"some@example.com"}]}
 ```
