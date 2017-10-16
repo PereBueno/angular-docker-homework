@@ -1,6 +1,6 @@
 # Booking portal
 
-This application emulates the process of booking a payment with peerTransfer
+This application emulates the process of booking a payment.
 
 ## Requirements
 
@@ -20,7 +20,7 @@ The application will be available at http://localhost:9292 If for any reason you
 
 Warning: Mind that all state stored within the docker container is lost when the container is removed. That means that everytime you run a new container the database gets regenerated.
 
-The app has two interfaces, the interface and the API.
+The app has two interfaces, the web interface and the API.
 
 ### Web interface
 
