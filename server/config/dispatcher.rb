@@ -11,7 +11,7 @@ module MyApplication
 
       app = case path_info
         when %r{^/api} then ApiController.new
-        when '/' then return redirect_to_payments
+        when '/' then redirect_to_payments
         when %r{^/payment} then PaymentsController.new
         else NotFoundController.new
       end
@@ -23,7 +23,8 @@ module MyApplication
 
     def redirect_to_payments
       no_body = []
-      [302, { 'Location' => '/payment' }, no_body]
+
+      lambda { |env| [302, { 'Location' => '/payment' }, no_body] }
     end
   end
 end
