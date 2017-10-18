@@ -1,31 +1,29 @@
-#peerTransfer booking portal
+# Booking portal
 
-This application emulates the process of booking a payment with peerTransfer
+This application emulates the process of booking a payment.
 
 ## Requirements
- - Ruby 2.1.3
- - bundle gem
 
-## Setup
-```
-$ bundle install
-$ bundle exec rake db:create
-$ bundle exec rake db:migrate
-$ bundle exec rake db:seed
-```
+ - Docker https://docs.docker.com/engine/installation/
+ - Docker Compose https://docs.docker.com/compose/install/
 
 ## Usage
 
-The app has two interfaces, the interface and the API.
+To boot up the application for development run:
 
 ```
-$ script/server
-Thin web server (v1.6.3 codename Protein Powder)
-Maximum connections set to 1024
-Listening on 0.0.0.0:9292, CTRL+C to stop
+$ docker-compose build
+$ docker-compose up
 ```
+
+The application will be available at http://localhost:9292 If for any reason you need the port to be different to 9292, you can change the port mapping in docker-compose.yml. For example to expose the application on port 8080 change `- 9292:9292` to `- 8080:9292`.
+
+Warning: Mind that all state stored within the docker container is lost when the container is removed. That means that everytime you run a new container the database gets regenerated.
+
+The app has two interfaces, the web interface and the API.
 
 ### Web interface
+
 Open on your browser
 
 ```
@@ -33,6 +31,7 @@ http://localhost:9292/payment
 ```
 
 ### API
+
 ```
 $ curl http://localhost:9292/api
 {"message":"Hello Developer"}
