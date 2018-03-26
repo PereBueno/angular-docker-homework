@@ -3,7 +3,7 @@
 The "Booking portal" is an application with the purpose of
 creating payment bookings. It consists on a payment form with the following structure:
 
-![alt tag](https://s3.amazonaws.com/f.cl.ly/items/3V2d3S1P2R231j3c0H2j/Screen%20Shot%202015-04-09%20at%2001.51.19.png)
+![alt tag](https://user-images.githubusercontent.com/34654846/37901679-4a71cd5a-30f2-11e8-83f2-d18ec3f594aa.png)
 
 When the form is submitted, the application creates a payment record with the provided information.
 
@@ -33,7 +33,7 @@ As a final step, we want to add to the amount some fees depending on the magnitu
 
 Here you can see an example on how this information could be displayed:
 
-![alt tag](https://s3.amazonaws.com/f.cl.ly/items/2b2G2P2W1U2l3a0Y3y0F/Screen%20Shot%202015-04-09%20at%2001.38.45.png)
+![alt tag](https://user-images.githubusercontent.com/34654846/37902217-fe20f97e-30f3-11e8-9594-fe4d611344b0.png)
 
 ### Notes
 
