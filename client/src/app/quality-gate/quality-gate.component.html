@@ -1,0 +1,28 @@
+<table>
+  <thead>
+    <tr>
+      <th>Reference</th>
+      <th>Amount</th>
+      <th>Amount with fees</th>
+      <th>Amount received</th>
+      <th>Quality check</th>
+      <th>Over payment</th>
+      <th>Under payment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of qualityCheckInfo">
+      <td>{{row.reference}}</td>
+      <td>{{row.amount}}</td>
+      <td>{{row.amountWithFees}}</td>
+      <td>{{row.amount_received}}</td>
+      <td>
+        {{row.qualityCheck.invalidEmail ? 'Invalid Email' : ''}} 
+        {{row.qualityCheck.duplicatedPayment ? ' Duplicated payment' : ''}} 
+        {{row.qualityCheck. amountTreshold ? ' Amount treshold' : ''}}
+      </td>
+      <td>{{row.underPayment ? 'X' : ''}}</td>
+      <td>{{row.overPayment ? ' X' : ''}}</td>
+    </tr>
+  </tbody>
+</table>
