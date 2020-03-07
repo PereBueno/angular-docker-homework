@@ -1,12 +1,12 @@
 export interface Booking{
-    reference: String,
-    amount: Number,
-    amount_received: Number,
-    country_from: String,
-    sender_full_name: String,
-    sender_address: String,
-    school: String,
-    currency_from: String,
-    student_id: Number,
-    email: String    
+    reference: string,
+    amount: number,
+    amount_received: number,
+    country_from: string,
+    sender_full_name: string,
+    sender_address: string,
+    school: string,
+    currency_from: string,
+    student_id: number,
+    email: string    
 }

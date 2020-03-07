@@ -23,10 +23,12 @@ export class QualityGateComponent implements OnInit {
     let bookings = this.service.getBookings();
     bookings.subscribe(response => {
       if (response){
+        let paymentCounts = this.paymentCounter(response);
         response.bookings.map(x => {return {
           ...x, 
           invalidEmail: this.emailCheck(x.email),
-          amountTreshold: this.amountTreshold < x.amount
+          amountTreshold: this.amountTreshold < x.amount,
+          duplicatedPayment: paymentCounts[''+x.student_id] == 1
         }});
       }
       else{
@@ -47,4 +49,18 @@ export class QualityGateComponent implements OnInit {
       .test(mail);
   }
 
+  /**
+   * Reducer that counts how many payments each student made, 
+   * Takes an array of bookings as input
+   * Returns an array with elements student_id -> payments
+   */
+  paymentCounter = (bookings) => {
+    return bookings.reduce((p, c) => {
+      if (!p.hasOwnProperty(c.student_id)){
+        p[''+c.student_id] = 0;
+      p[''+c.student_id]++;
+      return p;
+      }
+    }, {});
+  }
 }
