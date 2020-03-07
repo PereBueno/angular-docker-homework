@@ -27,8 +27,7 @@ export class BookingsService{
       }
 
     private handleError<T>(action = "unknown") {
-        return (error: HttpErrorResponse) : Observable<T> => {
-            console.log("EEEEEERTR")
+        return (error: HttpErrorResponse) : Observable<T> => {            
             console.error(error);
             const message = (error.error instanceof ErrorEvent) ? error.error.message : "Error " + error.status + ": " + error.error
             throw new Error(action + " failed: " + message);
