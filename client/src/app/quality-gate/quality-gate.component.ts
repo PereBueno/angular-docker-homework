@@ -21,8 +21,9 @@ export class QualityGateComponent implements OnInit {
     console.log("Initialising quality gate")
     let bookings = this.service.getBookings();
     bookings.subscribe(response => {
-      if (response)
-        console.log(response);
+      if (response){
+        response.bookings.map(x => {return {...x, invalidEmail: this.emailCheck(x.email)}});
+      }
       else{
         console.log("Error fetching bookings");
       }
@@ -30,4 +31,11 @@ export class QualityGateComponent implements OnInit {
     console.log("done");
   }
 
+  emailCheck = (mail) => {
+    // local part: any set of those characters and symbols with no 2 consecutive . allowed
+    // @ 
+    // domain: groups of 0-63 a-Z0-9 separated by . (labels), - are accepted but not at beggining or end of the label
+    return /^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
+      .test(mail);
+  }
 }
