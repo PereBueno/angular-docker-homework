@@ -11,7 +11,8 @@ import { BookingsService } from '../services/bookings.service';
   providers: [BookingsService]
 })
 export class QualityGateComponent implements OnInit {
-  bookingsApiPath = "/api/bookings"
+  readonly bookingsApiPath = "/api/bookings";
+  readonly amountTreshold = 1000000;
 
   apiResponse:Contract;
   
@@ -22,7 +23,11 @@ export class QualityGateComponent implements OnInit {
     let bookings = this.service.getBookings();
     bookings.subscribe(response => {
       if (response){
-        response.bookings.map(x => {return {...x, invalidEmail: this.emailCheck(x.email)}});
+        response.bookings.map(x => {return {
+          ...x, 
+          invalidEmail: this.emailCheck(x.email),
+          amountTreshold: this.amountTreshold < x.amount
+        }});
       }
       else{
         console.log("Error fetching bookings");
@@ -31,6 +36,9 @@ export class QualityGateComponent implements OnInit {
     console.log("done");
   }
 
+  /**
+   * Checks email format is valid
+   */  
   emailCheck = (mail) => {
     // local part: any set of those characters and symbols with no 2 consecutive . allowed
     // @ 
@@ -38,4 +46,5 @@ export class QualityGateComponent implements OnInit {
     return /^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
       .test(mail);
   }
+
 }
