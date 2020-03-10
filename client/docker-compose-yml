@@ -1,0 +1,9 @@
+version: '2'
+services:
+  client-web:
+    build:
+      context: .
+      args:
+        API_URL: http://localhost:8181
+    ports:
+      - 4200:8989
