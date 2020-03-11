@@ -1,7 +1,7 @@
 FROM node:alpine as builder
 
 # Environment variable, we'll get it from the docker-compose yaml
-ENV API_URL=http://localhost:8080
+ARG APIURL=http://localhost:9000
 
 RUN apk update && apk add --no-cache make git
 RUN mkdir -p /opt/client

@@ -4,6 +4,6 @@ services:
     build:
       context: .
       args:
-        APIURL: http://localhost:8181
+        APIURL: http://localhost:9000
     ports:
       - 8080:80
