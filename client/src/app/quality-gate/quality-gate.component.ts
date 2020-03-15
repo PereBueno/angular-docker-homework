@@ -34,8 +34,8 @@ export class QualityGateComponent implements OnInit {
             duplicatedPayment: paymentCounts[x.student_id] > 1
           },
           amountWithFees: x.amount + this.calculateFees(x.amount),
-          overPayment: x.amount_received < x.amount + this.calculateFees(x.amount),
-          underPayment: x.amount_received > x.amount + this.calculateFees(x.amount),
+          overPayment: Math.abs(x.amount_received) - Math.abs(x.amount + this.calculateFees(x.amount)) > 0, // Abs values to handle negative payments   
+          underPayment: Math.abs(x.amount_received) - Math.abs(x.amount + this.calculateFees(x.amount)) < 0 // Id., they can be introduced, so handle them 
         }});
       }
       else{
@@ -88,6 +88,6 @@ export class QualityGateComponent implements OnInit {
       else
         fees = amount * 0.05;
     }
-    return fees;
+    return (amount > 0 ) ? fees : 0; // Guessing no fees if it's a debit amount
   }
 }

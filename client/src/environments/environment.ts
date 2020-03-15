@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: "https://cors-anywhere.herokuapp.com/http://ip172-18-0-4-bphmasbcktm0009u37d0-9292.direct.labs.play-with-docker.com/"
+  apiBaseUrl: "http://localhost/bookings"
 };
 
 /*
