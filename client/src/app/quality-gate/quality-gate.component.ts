@@ -3,6 +3,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment'
 import { Contract } from '../model/contract';
 import { BookingsService } from '../services/bookings.service';
+import { overrideComponentView } from '@angular/core/src/view';
+
+const UNDERPAYMENT = "UNDER";
+const OVERPAYMENT = "OVER";
 
 @Component({
   selector: 'quality-gate',
@@ -25,24 +29,42 @@ export class QualityGateComponent implements OnInit {
     bookings.subscribe(response => {
       if (response){
         let paymentCounts = this.paymentCounter(response.bookings);
-        console.log(paymentCounts)
-        this.qualityCheckInfo = response.bookings.map(x => {return {
-          ...x,
-          qualityCheck:{ 
-            invalidEmail: !this.emailCheck(x.email),
-            amountTreshold: this.amountTreshold < x.amount,
-            duplicatedPayment: paymentCounts[x.student_id] > 1
-          },
-          amountWithFees: x.amount + this.calculateFees(x.amount),
-          overPayment: Math.abs(x.amount_received) - Math.abs(x.amount + this.calculateFees(x.amount)) > 0, // Abs values to handle negative payments   
-          underPayment: Math.abs(x.amount_received) - Math.abs(x.amount + this.calculateFees(x.amount)) < 0 // Id., they can be introduced, so handle them 
+        this.qualityCheckInfo = response.bookings.map(x => {          
+          let paymentExcess = this.checkOverUnderPayment(x.amount, x.amount_received);
+          return {
+            ...x,
+            qualityCheck:{ 
+              invalidEmail: !this.emailCheck(x.email),
+              amountTreshold: this.amountTreshold < x.amount,
+              duplicatedPayment: paymentCounts[x.student_id] > 1
+            },
+            amountWithFees: x.amount + this.calculateFees(x.amount),
+            overPayment: OVERPAYMENT === paymentExcess, 
+            underPayment: UNDERPAYMENT === paymentExcess
         }});
       }
       else{
-        console.log("Error fetching bookings");
+        console.error("Error fetching bookings");
       }
     })
     console.log("done");
+  }
+
+  /**
+   * Method to check over-under payments.
+   * Fees are excluded from the calculation, as reqs say "over-payment happens when the user pays more than the tuition amount we introduced"
+   * so it's not included here.
+   * Works also for negative values, no idea if they make sense (a refund?) but they can be introduced in the form
+   * Returns UNDERPAYMENT in the expected value is less than the actual, OVERPAYMENT if actual is bigger than expected or
+   * 'EQUALS' if both values are the same
+   */
+  checkOverUnderPayment = (expected, actual) => {
+    let result = "EQUALS";                
+    if (expected < actual)
+      result = UNDERPAYMENT;
+    else if (expected > actual)
+      result = OVERPAYMENT
+    return result;
   }
 
   /**
@@ -62,8 +84,7 @@ export class QualityGateComponent implements OnInit {
    * Takes an array of bookings as input
    * Returns an array with elements student_id -> payments
    */
-  paymentCounter = (bookings) => {
-    console.log(bookings);
+  paymentCounter = (bookings) => {    
     return bookings.reduce((p, c) => {
       if (p[c.student_id] === undefined)
         p[c.student_id] = 0;
