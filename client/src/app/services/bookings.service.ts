@@ -8,7 +8,7 @@ import { Contract } from '../model/contract';
 import { environment } from '../../environments/environment'
 
 const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
+    headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
   };
 
 @Injectable()
@@ -17,8 +17,7 @@ export class BookingsService{
 
     constructor(private http: HttpClient) { }
 
-    getBookings(): Observable<Contract> {
-        // let headers = new HttpHeaders().set('Access-Control-Allow-Origin', '*');
+    getBookings(): Observable<Contract> {                
         return this.http.get<Contract>(environment.apiBaseUrl + this.bookingsApiPath, httpOptions)
           .pipe(
             tap(() => console.log("fetched bookings")),
